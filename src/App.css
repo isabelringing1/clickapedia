@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+.article {
+  width: 100%;
+  max-width: 45vw;
+  overflow-y: scroll;
+  height: 80vh;
+  padding: 1vh 3vh;
+  background: white;
+  position: absolute;
+  filter: drop-shadow(2px 4px 6px black);
+}
+
+#article-0 {
+  filter: none;
+  height: 100vh;
+}
+
+#menu {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 39vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#log {
+  width: 35vh;
+  height: 35vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  color: white;
+
+  padding: 2vh 2vh 0;
+  font-family: "Helvetica";
+}
+
+.log-article {
+  color: rgb(30, 103, 250);
+  pointer-events: all;
+  text-decoration: none;
+}
+
+.log-entry {
+  font-size: 1.6vh;
+  padding-bottom: 1vh;
+}
+
+.red {
+  color: red;
+}
+
+.purple {
+  color: #551a8b;
+}
+
+.progress-container {
+  width: 38vh;
+  padding-bottom: 0.5vh;
+}
+
+.progress {
+  height: 3vh;
+
+  border: 2px solid black;
+  background-color: #ffffff;
+}
+
+.progress-inner {
+  background-color: rgb(116, 255, 137);
+  height: 100%;
+}
+
+.progress-text {
+  width: 100%;
+  text-align: right;
+  padding-bottom: 0.5vh;
+  padding-right: 3vh;
+}
