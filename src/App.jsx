@@ -1,19 +1,24 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import questsJson from "./quests.json";
 
 import Article from "./Article";
 import Menu from "./Menu";
-import Logo from "../public/Logo.png";
+import Logo from "/Logo.png";
 import Debug from "./Debug";
+import Error from "./Error";
+
+import { formatTopic } from "./util.js";
 
 import "./App.css";
 
 function App() {
-  const [log, setLog] = useState(["Incremental_game"]);
-  const [openedLinks, setOpenedLinks] = useState({ Incremental_game: true });
+  const startingArticle = "Incremental_games";
+  const [log, setLog] = useState([startingArticle]);
+  const [openedLinks, setOpenedLinks] = useState({ startingArticle: true });
   const [autos, setAutos] = useState(0);
   const [quests, setQuests] = useState({});
   const [knowledge, setKnowledge] = useState(1);
+  const [error, setError] = useState("");
 
   const [currentArticle, setCurrentArticle] = useState(0);
 
@@ -47,11 +52,9 @@ function App() {
       return;
     }
     var newTopics = [];
-    console.log(linksToCheck.current);
 
     if (linksToCheck.current.length > 0) {
       var newTopic = linksToCheck.current[0];
-      console.log("new topic: " + newTopic);
       if (!openedLinks[newTopic]) {
         newTopics.push(newTopic);
       }
@@ -64,12 +67,7 @@ function App() {
     for (var i in newTopics) {
       newOpenedLinks[newTopics[i]] = true;
     }
-    console.log(
-      "opened links: " +
-        Object.keys(openedLinks).length +
-        ", " +
-        Object.keys(newOpenedLinks).length
-    );
+
     setOpenedLinks(newOpenedLinks);
   }, 10);
 
@@ -92,37 +90,78 @@ function App() {
       }
     }, [delay]);
   }
+  //console.log("rerender app");
+
   const resurfaceArticle = (id) => {
     setCurrentArticle(id);
   };
-  console.log("rerender app");
+
+  const hasSeenArticle = (topic) => {
+    return openedLinks[topic];
+  };
+  const processInvalidArticle = () => {
+    //setLog([...log, "#HELP"]);
+    setError("Non-article link clicked.");
+  };
+
+  const processNewArticle = (topic) => {
+    var newOpenedLinks = { ...openedLinks };
+    setLog([...log, topic]);
+    newOpenedLinks[topic] = true;
+    setKnowledge(knowledge + 1);
+    setCurrentArticle(log.length);
+    setOpenedLinks(newOpenedLinks);
+  };
+
+  const processSeenArticle = (topic) => {
+    //setLog([...log, "*" + topic]);
+    setError("Already opened " + formatTopic(topic) + "!");
+  };
+
+  const checkForQuest = (categories, id) => {
+    var openQuests = Object.keys(quests).filter((id) => !quests[id].complete);
+    for (var i = 0; i < openQuests.length; i++) {
+      var questEntry = quests[openQuests[i]];
+      console.log(questEntry);
+
+      if (categories.includes(questEntry.quest.category)) {
+        var newQuests = { ...quests };
+        newQuests[questEntry.quest.id].complete = true;
+        setQuests(newQuests);
+        setKnowledge(knowledge + questEntry.quest.reward);
+        console.log("Quest complete: " + questEntry.quest.id);
+        setLog([...log, "#QUEST"]);
+        return true;
+      }
+    }
+    return false;
+  };
 
   return (
     <div id="content">
       <Debug setAutos={setAutos} setKnowledge={setKnowledge} />
+      <Error message={error} setMessage={setError} />
       <div className="game-header">
         <img src={Logo} className="game-logo" />
       </div>
       {log.map((a, i) => {
-        if (a[0] == "*" || a[0] == "#") {
+        if (a[0] == "*" || a[0] == "#" || i - log.length > 50) {
+          //don't render more than 50
           return null;
         }
         return (
           <Article
-            isCurrent={i == log.length - 1}
+            isCurrent={i == currentArticle && i != 0}
             topic={a}
             key={"article-" + i}
-            log={log}
-            setLog={setLog}
-            openedLinks={openedLinks}
-            setOpenedLinks={setOpenedLinks}
             id={i}
-            knowledge={knowledge}
-            setKnowledge={setKnowledge}
             linksToCheck={linksToCheck}
-            currentArticle={currentArticle}
-            setCurrentArticle={setCurrentArticle}
             resurfaceArticle={resurfaceArticle}
+            hasSeenArticle={hasSeenArticle}
+            processInvalidArticle={processInvalidArticle}
+            processNewArticle={processNewArticle}
+            processSeenArticle={processSeenArticle}
+            checkForQuest={checkForQuest}
           />
         );
       })}

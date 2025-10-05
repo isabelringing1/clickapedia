@@ -6,7 +6,7 @@ function Shop(props) {
   const { knowledge, setKnowledge, autos, setAutos } = props;
   var cards = shopJson["items"];
 
-  const [shopDict, setShopDict] = useState({});
+  const [purchasedItems, setPurchasedItems] = useState({});
 
   const onBuy = (card) => {
     if (card.category == "auto") {
@@ -16,14 +16,29 @@ function Shop(props) {
       return;
     }
     setKnowledge(knowledge - card.cost);
-    var newShopDict = { ...shopDict };
+    var newShopDict = { ...purchasedItems };
     newShopDict[card.id] = true;
-    setShopDict(newShopDict);
+    if (card.next) {
+      var nextCardId = cards[card.next];
+      newShopDict[nextCardId] = { complete: false, quest: cards[nextCardId] };
+    }
+    setPurchasedItems(newShopDict);
   };
+
+  const shouldShowCard = (card) => {
+    if (card.trigger > knowledge) {
+      console.log("card " + card.id + " has trigger of " + card.trigger);
+      return false;
+    }
+    return (
+      !purchasedItems[card.id] && (!card.prev || purchasedItems[card.prev])
+    );
+  };
+
   return (
     <div className="shop">
       {cards.map((card, i) => {
-        if (shopDict[card.id] || card.trigger > knowledge) {
+        if (!shouldShowCard(card)) {
           return null;
         } else {
           return (

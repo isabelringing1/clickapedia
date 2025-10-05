@@ -2,19 +2,203 @@
   "items": [
     {
       "id": "auto-opener-1",
-      "title": "Auto Opener",
+      "title": "Auto Opener 1",
       "category": "auto",
       "desc": "Opens 1 new article every 5 seconds.",
-      "cost": 5,
+      "cost": 25,
       "trigger": 2
     },
     {
       "id": "auto-opener-2",
-      "title": "Auto Opener",
+      "title": "Auto Opener 2",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 32,
+      "prev": "auto-opener-1"
+    },
+    {
+      "id": "auto-opener-3",
+      "title": "Auto Opener 3",
       "category": "auto",
       "desc": "Opens 1 new article every 5 seconds.",
       "cost": 50,
-      "trigger": 25
+      "prev": "auto-opener-2"
+    },
+    {
+      "id": "auto-opener-4",
+      "title": "Auto Opener 4",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 61,
+      "prev": "auto-opener-3"
+    },
+    {
+      "id": "auto-opener-5",
+      "title": "Auto Opener 5",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 76,
+      "prev": "auto-opener-4"
+    },
+    {
+      "id": "auto-opener-6",
+      "title": "Auto Opener 6",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 95,
+      "prev": "auto-opener-5"
+    },
+    {
+      "id": "auto-opener-7",
+      "title": "Auto Opener 7",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 119,
+      "prev": "auto-opener-6"
+    },
+    {
+      "id": "auto-opener-8",
+      "title": "Auto Opener 8",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 149,
+      "prev": "auto-opener-7"
+    },
+    {
+      "id": "auto-opener-9",
+      "title": "Auto Opener 9",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 186,
+      "prev": "auto-opener-8"
+    },
+    {
+      "id": "auto-opener-10",
+      "title": "Auto Opener 10",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 233,
+      "prev": "auto-opener-9"
+    },
+    {
+      "id": "auto-opener-11",
+      "title": "Auto Opener 11",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 291,
+      "prev": "auto-opener-10"
+    },
+    {
+      "id": "auto-opener-12",
+      "title": "Auto Opener 12",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 364,
+      "prev": "auto-opener-11"
+    },
+    {
+      "id": "auto-opener-13",
+      "title": "Auto Opener 13",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 455,
+      "prev": "auto-opener-12"
+    },
+    {
+      "id": "auto-opener-14",
+      "title": "Auto Opener 14",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 568,
+      "prev": "auto-opener-13"
+    },
+    {
+      "id": "auto-opener-15",
+      "title": "Auto Opener 15",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 711,
+      "prev": "auto-opener-14"
+    },
+    {
+      "id": "auto-opener-16",
+      "title": "Auto Opener 16",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 888,
+      "prev": "auto-opener-15"
+    },
+    {
+      "id": "auto-opener-17",
+      "title": "Auto Opener 17",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 1110,
+      "prev": "auto-opener-16"
+    },
+    {
+      "id": "auto-opener-18",
+      "title": "Auto Opener 18",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 1387,
+      "prev": "auto-opener-17"
+    },
+    {
+      "id": "auto-opener-19",
+      "title": "Auto Opener 19",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 1735,
+      "prev": "auto-opener-18"
+    },
+    {
+      "id": "auto-opener-20",
+      "title": "Auto Opener 20",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 2168,
+      "prev": "auto-opener-19"
+    },
+    {
+      "id": "auto-opener-21",
+      "title": "Auto Opener 21",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 2711,
+      "prev": "auto-opener-20"
+    },
+    {
+      "id": "auto-opener-22",
+      "title": "Auto Opener 22",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 3388,
+      "prev": "auto-opener-21"
+    },
+    {
+      "id": "auto-opener-23",
+      "title": "Auto Opener 23",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 4236,
+      "prev": "auto-opener-22"
+    },
+    {
+      "id": "auto-opener-24",
+      "title": "Auto Opener 24",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 5294,
+      "prev": "auto-opener-23"
+    },
+    {
+      "id": "auto-opener-25",
+      "title": "Auto Opener 25",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 6617,
+      "prev": "auto-opener-24"
     }
   ]
 }

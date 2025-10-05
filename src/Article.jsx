@@ -5,34 +5,34 @@ import {
   fetchAllLinksForPage,
   fetchWikiSummary,
   fetchArticleCategories,
-} from "../public/util";
+} from "./util.js";
 
 function Article(props) {
   var {
     topic,
-    log,
-    setLog,
-    openedLinks,
-    setOpenedLinks,
     id,
-    knowledge,
-    setKnowledge,
     linksToCheck,
-    currentArticle,
-    setCurrentArticle,
+    isCurrent,
     resurfaceArticle,
+    hasSeenArticle,
+    processInvalidArticle,
+    processNewArticle,
+    processSeenArticle,
+    checkForQuest,
   } = props;
   const [content, setContent] = useState("");
   const [summary, setSummary] = useState("");
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ready, setReady] = useState(false);
 
   const [posTop, setPosTop] = useState(0);
   const [posLeft, setPosLeft] = useState(0);
+  const [showHighlight, setShowHighlight] = useState(false);
   const dragTop = useRef(null);
   const dragLeft = useState(null);
 
-  var isCondensed = currentArticle != id && id > 0;
+  var isCondensed = !isCurrent && id != 0;
 
   useEffect(() => {
     if (!posTop && id > 0) {
@@ -49,7 +49,12 @@ function Article(props) {
       var categories = await fetchArticleCategories(topic);
       setContent(content);
       setSummary(summary);
-      //console.log(categories);
+      setCategories(categories);
+      console.log(categories);
+      var success = checkForQuest(categories, id);
+      if (success) {
+        setShowHighlight(true);
+      }
       setLoading(false);
       setReady(true);
       var links = await fetchAllLinksForPage(topic);
@@ -62,6 +67,7 @@ function Article(props) {
     e.preventDefault();
     if (isCondensed) {
       resurfaceArticle(id);
+      console.log("resurfacing " + id);
     }
     const link = e.target.closest("a");
     //console.log(link);
@@ -82,10 +88,11 @@ function Article(props) {
     if (
       href.startsWith("./Wikipedia:") ||
       href.startsWith("./Help:") ||
-      href.startsWith("./File:")
+      href.startsWith("./File:") ||
+      href.startsWith("./Special:")
     ) {
       console.log("Meta link: " + href);
-      setLog([...log, "#HELP"]);
+      processInvalidArticle();
       return;
     }
     href = href.split("#")[0];
@@ -93,16 +100,11 @@ function Article(props) {
     if (href && href.startsWith("./")) {
       var newPage = decodeURIComponent(href.replace("./", ""));
 
-      var newOpenedLinks = { ...openedLinks };
-      if (!openedLinks[newPage]) {
-        setLog([...log, newPage]);
-        newOpenedLinks[newPage] = true;
-        setKnowledge(knowledge + 1);
-        setCurrentArticle(log.length);
+      if (!hasSeenArticle(newPage)) {
+        processNewArticle(newPage);
       } else {
-        setLog([...log, "*" + newPage]);
+        processSeenArticle(newPage);
       }
-      setOpenedLinks(newOpenedLinks);
     }
   };
 
@@ -137,8 +139,11 @@ function Article(props) {
   };
 
   var cn = "article " + topic;
-  if (currentArticle == id && id != 0) {
+  if (isCurrent) {
     cn += " current";
+  }
+  if (showHighlight) {
+    cn += " highlight";
   }
   cn += isCondensed ? " condensed" : " full";
 

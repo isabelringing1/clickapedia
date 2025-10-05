@@ -27,13 +27,15 @@ body {
   position: absolute;
   top: 0;
   width: 45vw;
+  background-color: white;
+  padding: 3vh;
 }
 
 .game-logo {
   height: 11vh;
   position: absolute;
   top: 1vh;
-  left: 0;
+  left: 2vh;
 }
 
 .article {
@@ -52,11 +54,27 @@ body {
   user-select: none;
 }
 
+.highlight {
+  animation: flashHighlight 1s ease-in-out forwards;
+}
+
+@keyframes flashHighlight {
+  0% {
+    background: white;
+  }
+  50% {
+    background: rgb(255, 255, 224);
+  }
+  100% {
+    background: white;
+  }
+}
+
 .condensed {
   line-height: 2.8vh;
 }
 
-.article:not(#article-0) {
+.article:not(#article-0):not(.highlight) {
   animation: fadeShadow 1s ease-in-out forwards;
 }
 
@@ -83,6 +101,7 @@ body {
   background-color: white;
   padding-top: 1vh;
   z-index: 1;
+  font-family: "Linux Libertine", "Georgia", "Times", "Source Serif 4", serif;
 }
 
 .expand-text {
@@ -151,6 +170,10 @@ body {
 
 .purple {
   color: #551a8b;
+}
+
+.green {
+  color: rgb(11, 200, 17);
 }
 
 .progress-container {
@@ -305,4 +328,46 @@ body {
 
 .debug-entry {
   width: 100%;
+}
+
+.error-container {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 10000000;
+}
+
+.error-div {
+  width: 45vh;
+  height: 4vh;
+  background-color: #f8f9fa;
+  border: 2px solid #a2a9b1;
+  border-left: 1vh solid red;
+  filter: drop-shadow(2px 4px 6px rgb(0, 0, 0, 0.5));
+  line-height: 3.5vh;
+  padding: 2vh;
+  opacity: 0;
+}
+
+.error-in {
+  animation: show-error 0.2s forwards;
+}
+
+@keyframes show-error {
+  0% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

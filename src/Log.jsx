@@ -1,4 +1,4 @@
-import { formatTopic } from "../public/util";
+import { formatTopic } from "./util.js";
 
 function Log(props) {
   const { log, resurfaceArticle } = props;
@@ -17,6 +17,12 @@ function Log(props) {
             return (
               <div className="log-entry red" key={"log-" + i}>
                 Link not valid.
+              </div>
+            );
+          } else if (a == "#QUEST") {
+            return (
+              <div className="log-entry green" key={"log-" + i}>
+                Quest Complete!
               </div>
             );
           }
