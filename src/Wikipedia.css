@@ -1380,3 +1380,42 @@ figure {
   unicode-bidi: isolate;
   user-select: none;
 }
+
+figcaption {
+  display: table-caption;
+  height: 39.6094px;
+  padding-bottom: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 0px;
+  width: 346px;
+  font-family: sans-serif;
+  font-size: 14.144px;
+  line-height: 19.8016px;
+  text-align: start;
+  word-break: break-word;
+  color: rgb(32, 33, 34);
+  background-color: rgb(248, 249, 250);
+  border-bottom-color: rgb(200, 204, 209);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(200, 204, 209);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(200, 204, 209);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(32, 33, 34);
+  border-top-style: none;
+  border-top-width: 0px;
+  cursor: pointer;
+  border-collapse: collapse;
+  caption-side: bottom;
+  unicode-bidi: isolate;
+  user-select: none;
+}
