@@ -1,11 +1,7 @@
 import { formatTopic } from "../public/util";
 
 function Log(props) {
-  const { log, quests, resurfaceArticle } = props;
-
-  var openQuests = Object.keys(quests).filter((id) => !quests[id].complete);
-  console.log(openQuests);
-
+  const { log, resurfaceArticle } = props;
   return (
     <div id="log">
       {log.map((a, i) => {
@@ -36,21 +32,6 @@ function Log(props) {
             </div>
           );
         }
-      })}
-
-      {openQuests.map((id, i) => {
-        return (
-          <div className="quest" key={"quest-" + i}>
-            <div className="quest-text">
-              <span className="quest-highlight">Quest:</span>{" "}
-              {quests[id].quest.desc}
-            </div>
-            <div className="quest-text">
-              <span className="quest-highlight">Reward:</span>{" "}
-              {quests[id].quest.reward} Knowledge
-            </div>
-          </div>
-        );
       })}
     </div>
   );

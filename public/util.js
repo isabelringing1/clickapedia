@@ -10,6 +10,7 @@ async function fetchWikiPage(topic) {
       )}`
     );
     const html = await res.text();
+    console.log(html);
     return html;
   } catch (err) {
     console.error("Failed to load page:", err);
@@ -66,6 +67,42 @@ async function fetchAllLinksForPage(title) {
   return links;
 }
 
-async function fetchShortDescription(title) {}
+async function fetchArticleCategories(title) {
+  const endpoint = "https://en.wikipedia.org/w/api.php";
+  const params = new URLSearchParams({
+    action: "query",
+    format: "json",
+    titles: title,
+    prop: "categories",
+    cllimit: "max", // get as many categories as allowed
+    origin: "*", // 👈 this enables CORS for browsers
+  });
 
-export { formatTopic, fetchWikiPage, fetchAllLinksForPage, fetchWikiSummary };
+  const url = `${endpoint}?${params.toString()}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+
+    const data = await response.json();
+
+    // Extract categories
+    const pages = data.query.pages;
+    const page = Object.values(pages)[0]; // first (and usually only) page
+    const categories =
+      page.categories?.map((c) => c.title.replace("Category:", "")) || [];
+
+    console.log(categories);
+    return categories;
+  } catch (err) {
+    console.error("Error fetching categories:", err);
+  }
+}
+
+export {
+  formatTopic,
+  fetchWikiPage,
+  fetchAllLinksForPage,
+  fetchWikiSummary,
+  fetchArticleCategories,
+};

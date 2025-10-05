@@ -22,6 +22,20 @@ body {
   overflow: hidden;
 }
 
+.game-header {
+  height: 10vh;
+  position: absolute;
+  top: 0;
+  width: 45vw;
+}
+
+.game-logo {
+  height: 11vh;
+  position: absolute;
+  top: 1vh;
+  left: 0;
+}
+
 .article {
   width: 100%;
   max-width: 45vw;
@@ -31,6 +45,9 @@ body {
   background: white;
   position: absolute;
   filter: drop-shadow(2px 4px 6px rgb(0, 0, 0));
+}
+
+.article:not(#article-0) {
   animation: fadeShadow 1s ease-in-out forwards;
 }
 
@@ -53,22 +70,29 @@ body {
 }
 
 .article-header {
-  position: sticky;
   top: 0;
   background-color: white;
   padding-top: 1vh;
   z-index: 1;
 }
 
+.expand-text {
+  color: gray;
+  padding-top: 1vh;
+}
+
 .article-header:not(#article-header-0) {
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
+  position: sticky;
 }
 
 #article-0 {
   filter: none;
-  height: 100vh;
+  height: 87vh;
+  position: absolute;
+  bottom: 0;
 }
 
 #menu {
@@ -76,11 +100,12 @@ body {
   right: 0;
   bottom: 0;
   width: 39vh;
+  height: 100vh;
   display: flex;
   flex-direction: column-reverse;
+  align-items: end;
   pointer-events: none;
   z-index: 10000000;
-  backdrop-filter: blur(2px);
 }
 
 #log {
@@ -96,6 +121,7 @@ body {
   justify-content: start;
   overflow-y: scroll;
   pointer-events: all;
+  backdrop-filter: blur(5px);
 }
 
 .log-article {
@@ -110,7 +136,7 @@ body {
 }
 
 .red {
-  color: red;
+  color: rgb(255, 51, 51);
 }
 
 .purple {
@@ -120,6 +146,8 @@ body {
 .progress-container {
   width: 38vh;
   padding-bottom: 0.5vh;
+  margin-right: 1vh;
+  backdrop-filter: blur(5px);
 }
 
 .progress {
@@ -144,8 +172,11 @@ body {
 .shop {
   display: flex;
   flex-direction: column-reverse;
+  align-items: end;
   padding-bottom: 2vh;
-  width: 38vh;
+  width: 30vh;
+  margin-right: 1vh;
+  backdrop-filter: blur(5px);
 }
 
 .shop-card {
@@ -156,6 +187,8 @@ body {
   text-align: right;
   font-size: 1.65vh;
   pointer-events: all;
+  width: 30vh;
+  filter: drop-shadow(2px 4px 6px rgb(0, 0, 0, 0.3));
 }
 
 .disabled {
@@ -176,10 +209,33 @@ body {
   font-weight: bold;
 }
 
+.quests {
+  top: 0;
+  position: absolute;
+  text-align: right;
+  padding-bottom: 2vh;
+  width: 30vh;
+  margin-right: 1vh;
+  padding-top: 1vh;
+}
+
+.quest-text {
+  padding-bottom: 0.3vh;
+}
+
 .quest-highlight {
-  color: rgb(140, 225, 12);
+  color: blue;
+  font-weight: bold;
 }
 
 .quest {
-  padding-bottom: 2vh;
+  background-color: rgb(255, 249, 218);
+  border: 2px solid rgb(255, 201, 109);
+  padding: 1vh 2vh;
+  filter: drop-shadow(2px 4px 6px rgb(0, 0, 0, 0.3));
+  margin-bottom: 2vh;
+}
+
+.sidebar {
+  display: none;
 }

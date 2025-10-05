@@ -2,10 +2,11 @@
   "quests": [
     {
       "id": "quest-1",
-      "desc": "Open an article of a bird.",
+      "desc": "Open an article of an East Asian Country.",
       "time-limit": 60,
       "reward": 5,
-      "trigger": 1
+      "trigger": 1,
+      "category": "East_Asian_countries"
     },
     {
       "id": "quest-2",

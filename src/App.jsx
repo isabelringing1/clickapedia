@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { fetchWikiPage } from "../public/util";
 import questsJson from "./quests.json";
 
 import Article from "./Article";
 import Menu from "./Menu";
+import Logo from "../public/Logo.png";
 
 import "./App.css";
 
 function App() {
   const [log, setLog] = useState(["Incremental_game"]);
   const [openedLinks, setOpenedLinks] = useState({ Incremental_game: true });
-  const [autos, setAutos] = useState(2);
+  const [autos, setAutos] = useState(0);
   const [quests, setQuests] = useState({});
   const [knowledge, setKnowledge] = useState(1);
 
@@ -36,7 +36,7 @@ function App() {
       return;
     }
     var newTopics = [];
-    for (var i = 0; i < autos; i++) {
+    for (var i = 0; i < 1; i++) {
       if (linksToCheck.current.length > 0) {
         var newTopic = linksToCheck.current[0];
         if (!openedLinks[newTopic]) {
@@ -52,7 +52,7 @@ function App() {
       newOpenedLinks[topic] = true;
     }
     setOpenedLinks(newOpenedLinks);
-  }, 5000);
+  }, 5000 / autos);
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -76,9 +76,13 @@ function App() {
   const resurfaceArticle = (id) => {
     setCurrentArticle(id);
   };
+  console.log("rerender app");
 
   return (
     <div id="content">
+      <div className="game-header">
+        <img src={Logo} className="game-logo" />
+      </div>
       {log.map((a, i) => {
         if (a[0] == "*" || a[0] == "#") {
           return null;

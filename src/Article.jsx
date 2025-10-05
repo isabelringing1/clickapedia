@@ -4,6 +4,7 @@ import {
   fetchWikiPage,
   fetchAllLinksForPage,
   fetchWikiSummary,
+  fetchArticleCategories,
 } from "../public/util";
 
 function Article(props) {
@@ -45,8 +46,10 @@ function Article(props) {
       setLoading(true);
       var content = await fetchWikiPage(topic);
       var summary = await fetchWikiSummary(topic);
+      var categories = await fetchArticleCategories(topic);
       setContent(content);
       setSummary(summary);
+      console.log(categories);
       setLoading(false);
       setReady(true);
       var links = await fetchAllLinksForPage(topic);
@@ -62,7 +65,7 @@ function Article(props) {
       resurfaceArticle(id);
     }
     const link = e.target.closest("a");
-    //console.log(link);
+    console.log(link);
 
     if (!link) return;
 
@@ -77,8 +80,12 @@ function Article(props) {
 
     var href = link.getAttribute("href");
 
-    if (href.startsWith("./Wikipedia:") || href.startsWith("./Help:")) {
-      console.log("Meta");
+    if (
+      href.startsWith("./Wikipedia:") ||
+      href.startsWith("./Help:") ||
+      href.startsWith("./File:")
+    ) {
+      console.log("Meta link: " + href);
       setLog([...log, "#HELP"]);
       return;
     }
@@ -153,6 +160,7 @@ function Article(props) {
           id={"article-header-" + id}
           onMouseDown={onMouseDown}
         >
+          {isCondensed && <div className={"expand-text"}>Click to expand</div>}
           <h1>{formatTopic(topic)}</h1>
         </div>
 
