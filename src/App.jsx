@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import questsJson from "./quests.json";
 
 import Article from "./Article";
@@ -6,6 +6,7 @@ import Menu from "./Menu";
 import Logo from "/Logo.png";
 import Debug from "./Debug";
 import Error from "./Error";
+import Info from "./Info";
 
 import { formatTopic } from "./util.js";
 
@@ -19,6 +20,7 @@ function App() {
   const [quests, setQuests] = useState({});
   const [knowledge, setKnowledge] = useState(1);
   const [error, setError] = useState("");
+  const [showInfo, setShowInfo] = useState(false);
 
   const [currentArticle, setCurrentArticle] = useState(0);
 
@@ -140,9 +142,18 @@ function App() {
   return (
     <div id="content">
       <Debug setAutos={setAutos} setKnowledge={setKnowledge} />
+      <Info show={showInfo} setShow={setShowInfo} />
       <Error message={error} setMessage={setError} />
       <div className="game-header">
         <img src={Logo} className="game-logo" />
+        <button
+          className="info-button"
+          onClick={() => {
+            setShowInfo(true);
+          }}
+        >
+          ?
+        </button>
       </div>
       {log.map((a, i) => {
         if (a[0] == "*" || a[0] == "#" || i - log.length > 50) {

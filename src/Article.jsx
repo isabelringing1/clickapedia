@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useSound } from "use-sound";
 import {
   formatTopic,
   fetchWikiPage,
@@ -6,6 +7,7 @@ import {
   fetchWikiSummary,
   fetchArticleCategories,
 } from "./util.js";
+import clickSound from "/Click_1.wav";
 
 function Article(props) {
   var {
@@ -33,6 +35,7 @@ function Article(props) {
   const dragLeft = useState(null);
 
   var isCondensed = !isCurrent && id != 0;
+  const [playSound] = useSound(clickSound);
 
   useEffect(() => {
     if (!posTop && id > 0) {
@@ -65,6 +68,7 @@ function Article(props) {
 
   const onArticleClicked = (e) => {
     e.preventDefault();
+
     if (isCondensed) {
       resurfaceArticle(id);
       console.log("resurfacing " + id);
@@ -73,6 +77,7 @@ function Article(props) {
     //console.log(link);
 
     if (!link) return;
+    playSound();
 
     if (link.className.includes("mw-selflink-fragment")) {
       console.log("Self Link");
