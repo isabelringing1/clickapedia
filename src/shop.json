@@ -204,7 +204,7 @@
       "id": "cluster-1",
       "title": "Cluster 1",
       "category": "cluster",
-      "desc": "Creates a new cluster, to do it all over again.",
+      "desc": "Creates a new cluster, so you can do it all over again.",
       "cost": 10000,
       "prev": "auto-opener-25"
     }

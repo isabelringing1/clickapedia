@@ -53,7 +53,6 @@ function Article(props) {
       setContent(content);
       setSummary(summary);
       setCategories(categories);
-      console.log(categories);
       var success = checkForQuest(categories, id);
       if (success) {
         setShowHighlight(true);

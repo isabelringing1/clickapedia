@@ -29,7 +29,7 @@ function Log(props) {
         } else {
           return (
             <div className="log-entry" key={"log-" + i}>
-              Opened{" "}
+              &gt; Opened{" "}
               <a className="log-article" onClick={() => resurfaceArticle(i)}>
                 {formatTopic(a)}
               </a>

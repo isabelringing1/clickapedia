@@ -5,7 +5,6 @@ function Error(props) {
   const [cn, setCn] = useState("error-div");
 
   useEffect(() => {
-    console.log("message is " + message);
     if (message == "") {
       return;
     }

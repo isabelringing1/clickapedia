@@ -13,7 +13,7 @@ import { formatTopic } from "./util.js";
 import "./App.css";
 
 function App() {
-  const startingArticle = "Incremental_games";
+  const startingArticle = "Incremental_game";
   const [log, setLog] = useState([startingArticle]);
   const [openedLinks, setOpenedLinks] = useState({ startingArticle: true });
   const [autos, setAutos] = useState(0);
@@ -21,6 +21,7 @@ function App() {
   const [knowledge, setKnowledge] = useState(1);
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
+  const [purchasedItems, setPurchasedItems] = useState({});
 
   const [currentArticle, setCurrentArticle] = useState(0);
 
@@ -40,6 +41,49 @@ function App() {
     }
   }, [knowledge]);
 
+  useEffect(() => {
+    var d = loadData();
+    if (d != null) {
+      setKnowledge(d.knowledge);
+      setAutos(d.autos);
+      setOpenedLinks(d.openedLinks);
+      setPurchasedItems(d.purchasedItems);
+      setQuests(d.quests);
+    }
+  }, []);
+
+  useEffect(() => {
+    saveData();
+  }, [knowledge]);
+
+  function saveData() {
+    var newPlayerData = {
+      knowledge: knowledge,
+      autos: autos,
+      openedLinks: openedLinks,
+      purchasedItems: purchasedItems,
+      quests: quests,
+    };
+
+    var saveString = JSON.stringify(newPlayerData);
+
+    localStorage.setItem("clickipedia", saveString);
+  }
+
+  function loadData() {
+    var saveData = localStorage.getItem("clickipedia");
+    if (saveData != null) {
+      try {
+        saveData = JSON.parse(saveData);
+      } catch (e) {
+        console.log("Could not parse save data: ", e);
+        return null;
+      }
+      return saveData;
+    }
+    return null;
+  }
+
   const shouldFireAuto = () => {
     if (autos == 0) {
       return false;
@@ -54,11 +98,15 @@ function App() {
       return;
     }
     var newTopics = [];
+    console.log("ltc len:" + linksToCheck.current.length);
 
-    if (linksToCheck.current.length > 0) {
+    var searching = true;
+    while (linksToCheck.current.length > 0 && searching) {
       var newTopic = linksToCheck.current[0];
       if (!openedLinks[newTopic]) {
         newTopics.push(newTopic);
+        searching = false;
+      } else {
       }
       linksToCheck.current = linksToCheck.current.slice(1);
     }
@@ -186,6 +234,8 @@ function App() {
         quests={quests}
         resurfaceArticle={resurfaceArticle}
         setInfo={setInfo}
+        purchasedItems={purchasedItems}
+        setPurchasedItems={setPurchasedItems}
       />
     </div>
   );

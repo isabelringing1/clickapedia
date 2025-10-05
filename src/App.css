@@ -270,7 +270,7 @@ body {
 
 .shop-card {
   background-color: white;
-  border: 2px solid black;
+  border: 1px solid black;
   margin-bottom: 2vh;
   padding: 1vh 2vh 1vh;
   text-align: right;
@@ -283,7 +283,7 @@ body {
 .disabled {
   background-color: rgb(208, 208, 208);
   color: rgb(81, 81, 81);
-  border: 2px solid rgb(151, 151, 151);
+  border: 1px solid rgb(151, 151, 151);
 }
 
 .shop-card:hover:not(.disabled) {

@@ -5,7 +5,7 @@
       "desc": "Find an article of an East Asian Country.",
       "time-limit": 60,
       "reward": 25,
-      "trigger": 10,
+      "trigger": 5,
       "category": "East Asian countries"
     },
     {

@@ -14,6 +14,8 @@ function Menu(props) {
     quests,
     resurfaceArticle,
     setInfo,
+    purchasedItems,
+    setPurchasedItems,
   } = props;
   return (
     <div id="menu">
@@ -26,6 +28,8 @@ function Menu(props) {
         autos={autos}
         setAutos={setAutos}
         setInfo={setInfo}
+        purchasedItems={purchasedItems}
+        setPurchasedItems={setPurchasedItems}
       />
 
       <Quests quests={quests} />

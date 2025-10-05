@@ -1,12 +1,17 @@
-import { useState } from "react";
 import ShopCard from "./ShopCard";
 import shopJson from "./Shop.json";
 
 function Shop(props) {
-  const { knowledge, setKnowledge, autos, setAutos, setInfo } = props;
+  const {
+    knowledge,
+    setKnowledge,
+    autos,
+    setAutos,
+    setInfo,
+    purchasedItems,
+    setPurchasedItems,
+  } = props;
   var cards = shopJson["items"];
-
-  const [purchasedItems, setPurchasedItems] = useState({});
 
   const onBuy = (card) => {
     if (card.category == "auto") {
