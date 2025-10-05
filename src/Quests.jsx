@@ -2,7 +2,6 @@ function Quests(props) {
   const { quests } = props;
 
   var openQuests = Object.keys(quests).filter((id) => !quests[id].complete);
-  console.log(openQuests);
 
   return (
     <div className="quests">

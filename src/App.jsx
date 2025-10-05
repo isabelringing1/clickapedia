@@ -4,6 +4,7 @@ import questsJson from "./quests.json";
 import Article from "./Article";
 import Menu from "./Menu";
 import Logo from "../public/Logo.png";
+import Debug from "./Debug";
 
 import "./App.css";
 
@@ -17,6 +18,7 @@ function App() {
   const [currentArticle, setCurrentArticle] = useState(0);
 
   const linksToCheck = useRef([]);
+  const ms = useRef(0);
   const questList = questsJson["quests"];
 
   useEffect(() => {
@@ -31,28 +33,45 @@ function App() {
     }
   }, [knowledge]);
 
-  useInterval(() => {
+  const shouldFireAuto = () => {
     if (autos == 0) {
+      return false;
+    }
+    var divider = Math.ceil(5000 / autos / 10) * 10; // round to nearest 10
+    return ms.current % divider == 0;
+  };
+
+  useInterval(() => {
+    ms.current += 10;
+    if (!shouldFireAuto()) {
       return;
     }
     var newTopics = [];
-    for (var i = 0; i < 1; i++) {
-      if (linksToCheck.current.length > 0) {
-        var newTopic = linksToCheck.current[0];
-        if (!openedLinks[newTopic]) {
-          newTopics.push(newTopic);
-        }
-        linksToCheck.current = linksToCheck.current.slice(1);
+    console.log(linksToCheck.current);
+
+    if (linksToCheck.current.length > 0) {
+      var newTopic = linksToCheck.current[0];
+      console.log("new topic: " + newTopic);
+      if (!openedLinks[newTopic]) {
+        newTopics.push(newTopic);
       }
+      linksToCheck.current = linksToCheck.current.slice(1);
     }
+
     setLog([...log, ...newTopics]);
     setKnowledge(knowledge + newTopics.length);
     var newOpenedLinks = { ...openedLinks };
-    for (var topic in newTopics) {
-      newOpenedLinks[topic] = true;
+    for (var i in newTopics) {
+      newOpenedLinks[newTopics[i]] = true;
     }
+    console.log(
+      "opened links: " +
+        Object.keys(openedLinks).length +
+        ", " +
+        Object.keys(newOpenedLinks).length
+    );
     setOpenedLinks(newOpenedLinks);
-  }, 5000 / autos);
+  }, 10);
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -80,6 +99,7 @@ function App() {
 
   return (
     <div id="content">
+      <Debug setAutos={setAutos} setKnowledge={setKnowledge} />
       <div className="game-header">
         <img src={Logo} className="game-logo" />
       </div>

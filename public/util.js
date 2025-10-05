@@ -10,7 +10,7 @@ async function fetchWikiPage(topic) {
       )}`
     );
     const html = await res.text();
-    console.log(html);
+    //console.log(html);
     return html;
   } catch (err) {
     console.error("Failed to load page:", err);
@@ -92,7 +92,7 @@ async function fetchArticleCategories(title) {
     const categories =
       page.categories?.map((c) => c.title.replace("Category:", "")) || [];
 
-    console.log(categories);
+    //console.log(categories);
     return categories;
   } catch (err) {
     console.error("Error fetching categories:", err);

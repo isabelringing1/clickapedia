@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   formatTopic,
   fetchWikiPage,
@@ -29,15 +29,15 @@ function Article(props) {
 
   const [posTop, setPosTop] = useState(0);
   const [posLeft, setPosLeft] = useState(0);
-  const [dragTop, setDragTop] = useState(null);
-  const [dragLeft, setDragLeft] = useState(null);
+  const dragTop = useRef(null);
+  const dragLeft = useState(null);
 
   var isCondensed = currentArticle != id && id > 0;
 
   useEffect(() => {
     if (!posTop && id > 0) {
       setPosTop(Math.random() * (window.innerHeight / 2));
-      setPosLeft(Math.random() * window.innerWidth - window.innerWidth / 2);
+      setPosLeft((Math.random() * window.innerWidth) / 2);
     }
   }, []);
 
@@ -49,7 +49,7 @@ function Article(props) {
       var categories = await fetchArticleCategories(topic);
       setContent(content);
       setSummary(summary);
-      console.log(categories);
+      //console.log(categories);
       setLoading(false);
       setReady(true);
       var links = await fetchAllLinksForPage(topic);
@@ -61,11 +61,10 @@ function Article(props) {
   const onArticleClicked = (e) => {
     e.preventDefault();
     if (isCondensed) {
-      console.log("resurfacing " + id);
       resurfaceArticle(id);
     }
     const link = e.target.closest("a");
-    console.log(link);
+    //console.log(link);
 
     if (!link) return;
 
@@ -94,47 +93,47 @@ function Article(props) {
     if (href && href.startsWith("./")) {
       var newPage = decodeURIComponent(href.replace("./", ""));
 
+      var newOpenedLinks = { ...openedLinks };
       if (!openedLinks[newPage]) {
         setLog([...log, newPage]);
-        openedLinks[newPage] = true;
+        newOpenedLinks[newPage] = true;
         setKnowledge(knowledge + 1);
         setCurrentArticle(log.length);
       } else {
         setLog([...log, "*" + newPage]);
       }
+      setOpenedLinks(newOpenedLinks);
     }
   };
 
-  const onMouseDown = (e) => {
+  const startDrag = (e) => {
     if (id == 0) {
       return;
     }
-    setDragTop(e.clientY);
-    setDragLeft(e.clientX);
-    console.log("drag start");
+
+    dragTop.current = e.clientY;
+    dragLeft.current = e.clientX;
     document.onmouseup = closeDragElement;
-    document.onmousemove = elementDrag;
+    document.onmousemove = articleDragged;
   };
 
-  const closeDragElement = (e) => {
+  const closeDragElement = () => {
     document.onmouseup = null;
     document.onmousemove = null;
   };
 
-  const elementDrag = (e) => {
+  const articleDragged = (e) => {
     if (id == 0) {
       return;
     }
     e.preventDefault();
     // calculate the new cursor position:
-    var leftDelta = dragLeft ? dragLeft - e.clientX : 0;
-    var topDelta = dragTop ? dragTop - e.clientY : 0;
+    var leftDelta = dragLeft.current - e.clientX;
+    var topDelta = dragTop.current - e.clientY;
 
     // set the element's new position:
     setPosTop(posTop - topDelta);
     setPosLeft(posLeft - leftDelta);
-    setDragTop(e.clientY);
-    setDragLeft(e.clientX);
   };
 
   var cn = "article " + topic;
@@ -143,23 +142,22 @@ function Article(props) {
   }
   cn += isCondensed ? " condensed" : " full";
 
+  var articleStyle = {
+    top: posTop + "px",
+    left: posLeft + "px",
+    zIndex: isCondensed ? id : 1000000,
+  };
+
   return (
     ready && (
       <div
         className={cn}
         id={"article-" + id}
-        style={{
-          marginTop: posTop + "px",
-          marginLeft: posLeft + "px",
-          zIndex: isCondensed || id == 0 ? id : 1000000,
-        }}
+        style={id == 0 ? {} : articleStyle}
         onClick={onArticleClicked}
+        onMouseDown={startDrag}
       >
-        <div
-          className="article-header"
-          id={"article-header-" + id}
-          onMouseDown={onMouseDown}
-        >
+        <div className="article-header" id={"article-header-" + id}>
           {isCondensed && <div className={"expand-text"}>Click to expand</div>}
           <h1>{formatTopic(topic)}</h1>
         </div>
@@ -167,13 +165,15 @@ function Article(props) {
         {loading && <p>Loading...</p>}
         {!isCondensed && (
           <div
-            id="wiki-content"
             dangerouslySetInnerHTML={{ __html: content }}
             style={{ lineHeight: 1.6 }}
           />
         )}
         {isCondensed && (
-          <div dangerouslySetInnerHTML={{ __html: summary }}></div>
+          <div
+            className="condensed"
+            dangerouslySetInnerHTML={{ __html: summary }}
+          ></div>
         )}
       </div>
     )

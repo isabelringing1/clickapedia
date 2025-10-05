@@ -7,11 +7,9 @@ function Log(props) {
       {log.map((a, i) => {
         if (a[0] == "*") {
           return (
-            <div className="log-entry red" key={"log-" + i}>
-              You've already opened{" "}
-              <a className="log-article purple">
-                {formatTopic(a.substring(1))}
-              </a>
+            <div className="log-entry " key={"log-" + i}>
+              <a className="log-article red">{formatTopic(a.substring(1))}</a>{" "}
+              has already been opened.
             </div>
           );
         } else if (a[0] == "#") {

@@ -45,6 +45,15 @@ body {
   background: white;
   position: absolute;
   filter: drop-shadow(2px 4px 6px rgb(0, 0, 0));
+  line-height: 3.5vh;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.condensed {
+  line-height: 2.8vh;
 }
 
 .article:not(#article-0) {
@@ -78,7 +87,7 @@ body {
 
 .expand-text {
   color: gray;
-  padding-top: 1vh;
+  padding-top: 0vh;
 }
 
 .article-header:not(#article-header-0) {
@@ -111,8 +120,9 @@ body {
 #log {
   width: 35vh;
   height: 35vh;
-  background-color: rgba(0, 0, 0, 0.656);
-  color: white;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
 
   padding: 2vh 2vh 0;
   font-family: "Helvetica";
@@ -125,7 +135,7 @@ body {
 }
 
 .log-article {
-  color: rgb(70, 132, 255);
+  color: #0645ad;
   pointer-events: all;
   text-decoration: none;
 }
@@ -144,16 +154,16 @@ body {
 }
 
 .progress-container {
-  width: 38vh;
-  padding-bottom: 0.5vh;
-  margin-right: 1vh;
-  backdrop-filter: blur(5px);
+  width: 39.5vh;
+  background: linear-gradient(to left, #f8f9fa, #f8f9fa 80%, #eeeeee00 100%);
+  padding-top: 1vh;
 }
 
 .progress {
   height: 2vh;
 
   border: 2px solid black;
+  border-bottom-width: 0;
   background-color: #ffffff;
 }
 
@@ -163,27 +173,62 @@ body {
 }
 
 .progress-text {
-  width: 100%;
   text-align: right;
   padding-bottom: 0.5vh;
-  padding-right: 3vh;
+  margin-right: 1vh;
+}
+
+#knowledge-tween {
+  position: absolute;
+  color: green;
+  right: 1vh;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.negative {
+  color: red;
+}
+
+.float-up {
+  animation: float-up 1s 1 ease-out;
+  -webkit-animation: float-up 1s 1 ease-out;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 1;
+    bottom: 43vh;
+  }
+  10% {
+    opacity: 1;
+  }
+  60% {
+    bottom: 44vh;
+  }
+  80% {
+    opacity: 1;
+    bottom: 44vh;
+  }
+  100% {
+    opacity: 0;
+    bottom: 44vh;
+  }
 }
 
 .shop {
   display: flex;
   flex-direction: column-reverse;
   align-items: end;
-  padding-bottom: 2vh;
   width: 30vh;
   margin-right: 1vh;
-  backdrop-filter: blur(5px);
 }
 
 .shop-card {
   background-color: white;
   border: 2px solid black;
   margin-bottom: 2vh;
-  padding: 1vh 2vh;
+  padding: 1vh 2vh 1vh;
   text-align: right;
   font-size: 1.65vh;
   pointer-events: all;
@@ -214,7 +259,7 @@ body {
   position: absolute;
   text-align: right;
   padding-bottom: 2vh;
-  width: 30vh;
+  width: 35vh;
   margin-right: 1vh;
   padding-top: 1vh;
 }
@@ -224,7 +269,7 @@ body {
 }
 
 .quest-highlight {
-  color: blue;
+  color: #0645ad;
   font-weight: bold;
 }
 
@@ -236,6 +281,28 @@ body {
   margin-bottom: 2vh;
 }
 
+.hlist {
+  display: none;
+}
+
 .sidebar {
   display: none;
+}
+
+.debug {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30vw;
+  height: 20vw;
+  background-color: rgba(0, 0, 0, 0.409);
+  z-index: 10000000;
+  padding: 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.debug-entry {
+  width: 100%;
 }

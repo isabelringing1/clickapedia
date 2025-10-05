@@ -2,10 +2,10 @@
   "quests": [
     {
       "id": "quest-1",
-      "desc": "Open an article of an East Asian Country.",
+      "desc": "Find an article of an East Asian Country.",
       "time-limit": 60,
-      "reward": 5,
-      "trigger": 1,
+      "reward": 25,
+      "trigger": 10,
       "category": "East_Asian_countries"
     },
     {
