@@ -11,6 +11,7 @@ import Info from "./Info";
 import { formatTopic } from "./util.js";
 
 import "./App.css";
+import "./Wikipedia.css";
 
 function App() {
   const startingArticle = "Incremental_game";
@@ -98,7 +99,6 @@ function App() {
       return;
     }
     var newTopics = [];
-    console.log("ltc len:" + linksToCheck.current.length);
 
     var searching = true;
     while (linksToCheck.current.length > 0 && searching) {
@@ -149,6 +149,9 @@ function App() {
   const hasSeenArticle = (topic) => {
     return openedLinks[topic];
   };
+  const processSelfLink = () => {
+    setError("Link leads to current article.");
+  };
   const processInvalidArticle = () => {
     //setLog([...log, "#HELP"]);
     setError("Non-article link clicked.");
@@ -172,7 +175,6 @@ function App() {
     var openQuests = Object.keys(quests).filter((id) => !quests[id].complete);
     for (var i = 0; i < openQuests.length; i++) {
       var questEntry = quests[openQuests[i]];
-      console.log(questEntry);
 
       if (categories.includes(questEntry.quest.category)) {
         var newQuests = { ...quests };
@@ -221,6 +223,7 @@ function App() {
             processNewArticle={processNewArticle}
             processSeenArticle={processSeenArticle}
             checkForQuest={checkForQuest}
+            processSelfLink={processSelfLink}
           />
         );
       })}

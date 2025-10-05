@@ -2,7 +2,7 @@ const formatTopic = (topic) => {
   return topic.split("_").join(" ");
 };
 
-async function fetchWikiPage(topic) {
+async function fetchWikiPage(topic, onlyInner = true) {
   try {
     const res = await fetch(
       `https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(
@@ -10,8 +10,12 @@ async function fetchWikiPage(topic) {
       )}`
     );
     const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    return doc.body.innerHTML;
+
     //console.log(html);
-    return html;
   } catch (err) {
     console.error("Failed to load page:", err);
     return "<p>Failed to load page.</p>";

@@ -21,6 +21,7 @@ function Article(props) {
     processNewArticle,
     processSeenArticle,
     checkForQuest,
+    processSelfLink,
   } = props;
   const [content, setContent] = useState("");
   const [summary, setSummary] = useState("");
@@ -47,7 +48,7 @@ function Article(props) {
   useEffect(() => {
     async function getLinks() {
       setLoading(true);
-      var content = await fetchWikiPage(topic);
+      var content = await fetchWikiPage(topic, id != 0);
       var summary = await fetchWikiSummary(topic);
       var categories = await fetchArticleCategories(topic);
       setContent(content);
@@ -80,10 +81,12 @@ function Article(props) {
 
     if (link.className.includes("mw-selflink-fragment")) {
       console.log("Self Link");
+      processSelfLink();
       return;
     }
     if (link.className.includes("#cite-note")) {
       console.log("Citation");
+      processInvalidArticle();
       return;
     }
 
@@ -168,7 +171,7 @@ function Article(props) {
       >
         <div className="article-header" id={"article-header-" + id}>
           {isCondensed && <div className={"expand-text"}>Click to expand</div>}
-          <h1>{formatTopic(topic)}</h1>
+          {formatTopic(topic)}
         </div>
 
         {loading && <p>Loading...</p>}
