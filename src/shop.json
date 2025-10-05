@@ -6,7 +6,7 @@
       "category": "auto",
       "desc": "Opens 1 new article every 5 seconds.",
       "cost": 25,
-      "trigger": 2
+      "trigger": 10
     },
     {
       "id": "auto-opener-2",

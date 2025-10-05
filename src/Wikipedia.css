@@ -645,6 +645,13 @@ img.thumbborder {
   font-size: 150%;
   margin: 5px;
 }
+a {
+  color: rgb(51, 102, 204);
+}
+
+a:visited {
+  color: rgb(106, 96, 176);
+}
 
 .printfooter {
   display: none;
