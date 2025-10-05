@@ -1419,3 +1419,16 @@ figcaption {
   unicode-bidi: isolate;
   user-select: none;
 }
+
+.hatnote {
+  display: block;
+  margin-bottom: 8px;
+  padding-left: 25.6px;
+  direction: ltr;
+  font-family: sans-serif;
+  font-style: italic;
+  line-height: 26px;
+  color: rgb(32, 33, 34);
+  unicode-bidi: isolate;
+  padding-top: 1vh;
+}
