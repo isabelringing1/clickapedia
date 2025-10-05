@@ -1,1 +1,1 @@
-# Clickapedia
+# Clickiapedia

@@ -1,0 +1,18 @@
+{
+  "quests": [
+    {
+      "id": "quest-1",
+      "desc": "Open an article of a bird.",
+      "time-limit": 60,
+      "reward": 5,
+      "trigger": 1
+    },
+    {
+      "id": "quest-2",
+      "desc": "Opens an article of a country.",
+      "time-limit": 60,
+      "reward": 10,
+      "trigger": 100
+    }
+  ]
+}

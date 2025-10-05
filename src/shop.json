@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "id": "auto-opener-1",
+      "title": "Auto Opener",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 5,
+      "trigger": 2
+    },
+    {
+      "id": "auto-opener-2",
+      "title": "Auto Opener",
+      "category": "auto",
+      "desc": "Opens 1 new article every 5 seconds.",
+      "cost": 50,
+      "trigger": 25
+    }
+  ]
+}

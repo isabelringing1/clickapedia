@@ -3,6 +3,7 @@ body {
   width: 100vw;
   height: 100vh;
   font-family: sans-serif;
+  overflow: hidden;
 }
 
 #root {
@@ -18,17 +19,51 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #f8f9fa;
+  overflow: hidden;
 }
 
 .article {
   width: 100%;
   max-width: 45vw;
   overflow-y: scroll;
-  height: 80vh;
-  padding: 1vh 3vh;
+  cursor: pointer;
+  padding: 0 3vh 1vh;
   background: white;
   position: absolute;
-  filter: drop-shadow(2px 4px 6px black);
+  filter: drop-shadow(2px 4px 6px rgb(0, 0, 0));
+  animation: fadeShadow 1s ease-in-out forwards;
+}
+
+@keyframes fadeShadow {
+  from {
+    border: 2px solid greenyellow;
+  }
+  to {
+    border: 2px solid rgba(255, 255, 255, 0);
+  }
+}
+
+.full {
+  height: 80vh;
+}
+
+.current {
+  filter: drop-shadow(2px 4px 6px black)
+    drop-shadow(2px 4px 6px rgba(234, 255, 0, 0.45));
+}
+
+.article-header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding-top: 1vh;
+  z-index: 1;
+}
+
+.article-header:not(#article-header-0) {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 
 #article-0 {
@@ -41,24 +76,30 @@ body {
   right: 0;
   bottom: 0;
   width: 39vh;
-  height: 100vh;
   display: flex;
   flex-direction: column-reverse;
+  pointer-events: none;
+  z-index: 10000000;
+  backdrop-filter: blur(2px);
 }
 
 #log {
   width: 35vh;
   height: 35vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.656);
   color: white;
 
   padding: 2vh 2vh 0;
   font-family: "Helvetica";
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: start;
+  overflow-y: scroll;
+  pointer-events: all;
 }
 
 .log-article {
-  color: rgb(30, 103, 250);
+  color: rgb(70, 132, 255);
   pointer-events: all;
   text-decoration: none;
 }
@@ -82,7 +123,7 @@ body {
 }
 
 .progress {
-  height: 3vh;
+  height: 2vh;
 
   border: 2px solid black;
   background-color: #ffffff;
@@ -98,4 +139,47 @@ body {
   text-align: right;
   padding-bottom: 0.5vh;
   padding-right: 3vh;
+}
+
+.shop {
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: 2vh;
+  width: 38vh;
+}
+
+.shop-card {
+  background-color: white;
+  border: 2px solid black;
+  margin-bottom: 2vh;
+  padding: 1vh 2vh;
+  text-align: right;
+  font-size: 1.65vh;
+  pointer-events: all;
+}
+
+.disabled {
+  background-color: rgb(208, 208, 208);
+  color: rgb(81, 81, 81);
+  border: 2px solid rgb(151, 151, 151);
+}
+
+.shop-card:hover:not(.disabled) {
+  background-color: rgb(248, 248, 248);
+}
+
+.shop-text {
+  padding-bottom: 0.3vh;
+}
+
+.shop-card-title {
+  font-weight: bold;
+}
+
+.quest-highlight {
+  color: rgb(140, 225, 12);
+}
+
+.quest {
+  padding-bottom: 2vh;
 }
