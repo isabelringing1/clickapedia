@@ -20,7 +20,7 @@ function App() {
   const [quests, setQuests] = useState({});
   const [knowledge, setKnowledge] = useState(1);
   const [error, setError] = useState("");
-  const [showInfo, setShowInfo] = useState(false);
+  const [info, setInfo] = useState("");
 
   const [currentArticle, setCurrentArticle] = useState(0);
 
@@ -142,14 +142,14 @@ function App() {
   return (
     <div id="content">
       <Debug setAutos={setAutos} setKnowledge={setKnowledge} />
-      <Info show={showInfo} setShow={setShowInfo} />
+      <Info info={info} setInfo={setInfo} />
       <Error message={error} setMessage={setError} />
       <div className="game-header">
         <img src={Logo} className="game-logo" />
         <button
           className="info-button"
           onClick={() => {
-            setShowInfo(true);
+            setInfo("info");
           }}
         >
           ?
@@ -185,6 +185,7 @@ function App() {
         setAutos={setAutos}
         quests={quests}
         resurfaceArticle={resurfaceArticle}
+        setInfo={setInfo}
       />
     </div>
   );

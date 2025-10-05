@@ -199,6 +199,14 @@
       "desc": "Opens 1 new article every 5 seconds.",
       "cost": 6617,
       "prev": "auto-opener-24"
+    },
+    {
+      "id": "cluster-1",
+      "title": "Cluster 1",
+      "category": "cluster",
+      "desc": "Creates a new cluster, to do it all over again.",
+      "cost": 10000,
+      "prev": "auto-opener-25"
     }
   ]
 }

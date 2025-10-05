@@ -3,7 +3,7 @@ import ShopCard from "./ShopCard";
 import shopJson from "./Shop.json";
 
 function Shop(props) {
-  const { knowledge, setKnowledge, autos, setAutos } = props;
+  const { knowledge, setKnowledge, autos, setAutos, setInfo } = props;
   var cards = shopJson["items"];
 
   const [purchasedItems, setPurchasedItems] = useState({});
@@ -11,8 +11,10 @@ function Shop(props) {
   const onBuy = (card) => {
     if (card.category == "auto") {
       setAutos(autos + 1);
+    } else if (card.category == "cluster") {
+      setInfo("ending");
     } else {
-      console.log("did not recognize card category " + card.category);
+      console.error("Did not recognize card category " + card.category);
       return;
     }
     setKnowledge(knowledge - card.cost);

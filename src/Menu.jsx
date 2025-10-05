@@ -13,6 +13,7 @@ function Menu(props) {
     setAutos,
     quests,
     resurfaceArticle,
+    setInfo,
   } = props;
   return (
     <div id="menu">
@@ -24,6 +25,7 @@ function Menu(props) {
         setKnowledge={setKnowledge}
         autos={autos}
         setAutos={setAutos}
+        setInfo={setInfo}
       />
 
       <Quests quests={quests} />
